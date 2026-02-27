@@ -14,7 +14,7 @@ app.use(cors({
         const allowed = [
             "http://localhost:5173",
             "http://localhost:3000",
-            "https://quickhire-job-board-application.vercel.app",
+            "https://quick-hire-job.vercel.app",
         ];
         // Allow any vercel.app preview URL + listed origins
         if (!origin || allowed.includes(origin) || origin.endsWith('.vercel.app')) {

@@ -2,6 +2,9 @@
 
 ![QuickHire Homepage Banner](./frontend/public/Homepage.png)
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-quick--hire--job.vercel.app-4640DE?style=for-the-badge&logo=vercel)](https://quick-hire-job.vercel.app)
+[![Backend API](https://img.shields.io/badge/Backend%20API-Render-46E3B7?style=for-the-badge&logo=render)](https://quickhire-job-board-application.onrender.com)
+
 > A full-stack job board application built with **React + Node.js + MongoDB + Firebase**, featuring role-based authentication, admin dashboards, and animated UI.
 
 ---
