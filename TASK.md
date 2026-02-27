@@ -50,5 +50,6 @@
 - [x] Refactor CTA section for mobile (Stacking, centered text, dashboard image)
 - [x] Polish Footer for mobile (Circular social icons, newsletter layout)
 - [x] Final verification across multiple viewport sizes
+- [x] Fix footer logo path in `Footer.jsx`
 
 ## All Tasks Completed Successfully.

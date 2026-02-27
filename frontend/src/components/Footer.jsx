@@ -1,5 +1,6 @@
 import React from 'react';
 import { FiBriefcase } from "react-icons/fi";
+import logoImg from '../assets/image copy.png';
 
 export default function Footer() {
     return (
@@ -8,7 +9,7 @@ export default function Footer() {
                 {/* Logo & Info */}
                 <div className="col-span-1">
                     <div className="flex items-center gap-2 text-2xl font-bold mb-6">
-                        <img src="/src/assets/image copy.png" alt="Logo" className="h-8 w-8 object-contain brightness-0 invert" />
+                        <img src={logoImg} alt="QuickHire Logo" className="h-8 w-8 object-contain brightness-0 invert" />
                         <span style={{ fontFamily: 'Red Hat Display, sans-serif' }}>QuickHire</span>
                     </div>
                     <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
