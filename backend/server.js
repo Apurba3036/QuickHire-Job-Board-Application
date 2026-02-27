@@ -10,7 +10,19 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: ["http://localhost:5173", "http://localhost:3000"],
+    origin: function (origin, callback) {
+        const allowed = [
+            "http://localhost:5173",
+            "http://localhost:3000",
+            "https://quickhire-job-board-application.vercel.app",
+        ];
+        // Allow any vercel.app preview URL + listed origins
+        if (!origin || allowed.includes(origin) || origin.endsWith('.vercel.app')) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
 }));
 
