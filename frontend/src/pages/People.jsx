@@ -24,7 +24,7 @@ export default function People() {
 
     return (
         <div className="min-h-screen bg-gray-50 pt-[72px] flex flex-col">
-            <Navbar />
+          
             <div className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-800 tracking-tight">People Directory</h1>
@@ -64,7 +64,7 @@ export default function People() {
                     </div>
                 )}
             </div>
-            <Footer />
+          
         </div>
     );
 }
