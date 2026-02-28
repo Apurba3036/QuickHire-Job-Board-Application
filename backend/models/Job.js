@@ -6,7 +6,7 @@ const jobSchema = new mongoose.Schema({
     location: { type: String, required: true },
     category: { type: String, required: true },
     description: { type: String, required: true },
-    type: { type: String, default: 'Full Time' }, // Full Time, Part Time, Contract
+    type: { type: String, default: 'Full Time' }, 
     salary: { type: String, default: 'Negotiable' },
     companyLogo: { type: String, default: '' },
     tags: [{ type: String }],
