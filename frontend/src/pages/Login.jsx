@@ -61,7 +61,7 @@ export default function Login() {
 
                 <div className="w-full max-w-md mt-10 lg:mt-0">
                     <div className="text-center mb-10">
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2">Login</h1>
+                        <h1 className="mt-32 text-3xl font-bold text-gray-900 mb-2">Login</h1>
                         <p className="text-gray-500">Welcome back! Please enter your details.</p>
                     </div>
 
