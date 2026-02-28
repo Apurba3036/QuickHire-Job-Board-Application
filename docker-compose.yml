@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: quickhire_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - ./backend/.env
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: quickhire_frontend
+    ports:
+      - "5173:80" # Mapping so it still runs locally on 5173 in the browser
+    depends_on:
+      - backend
+    restart: unless-stopped
