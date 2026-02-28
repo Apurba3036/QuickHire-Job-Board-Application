@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import heroMan from '../../assets/professionalman.png';
 
 export default function HeroSection() {
+    const [keyword, setKeyword] = useState('');
+    const [location, setLocation] = useState('');
+    const navigate = useNavigate();
+
+    const handleSearch = () => {
+        const params = new URLSearchParams();
+        if (keyword.trim()) params.append('search', keyword.trim());
+        if (location && location !== 'Any Location') params.append('location', location);
+        
+        navigate(`/jobs?${params.toString()}`);
+    };
+
     return (
         <div className="relative bg-gray-50 pb-20 pt-10">
             {/* Angled White Hero Area */}
@@ -44,17 +57,32 @@ export default function HeroSection() {
                         <div className="bg-white shadow-xl md:shadow-[0_15px_40px_-15px_rgba(0,0,0,0.1)] rounded-xl p-3 md:p-2 flex flex-col md:flex-row gap-3 md:gap-2 max-w-2xl border border-gray-100 relative z-30">
                             <div className="flex-1 flex items-center px-4 py-3 md:py-4 border md:border-none border-gray-100 rounded-lg md:border-r md:border-gray-100">
                                 <Search className="text-[#25324B] w-5 h-5 mr-3" />
-                                <input type="text" placeholder="Job title or keyword" className="w-full bg-transparent focus:outline-none text-gray-700 placeholder-gray-400 font-medium" />
+                                <input 
+                                    type="text" 
+                                    placeholder="Job title or keyword" 
+                                    className="w-full bg-transparent focus:outline-none text-gray-700 placeholder-gray-400 font-medium" 
+                                    value={keyword}
+                                    onChange={(e) => setKeyword(e.target.value)}
+                                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                                />
                             </div>
                             <div className="flex-1 flex items-center px-4 py-3 md:py-4 border md:border-none border-gray-100 rounded-lg pr-8">
                                 <MapPin className="text-[#25324B] w-5 h-5 mr-3" />
-                                <select className="w-full bg-transparent focus:outline-none text-[#25324B] appearance-none font-bold cursor-pointer">
-                                    <option>Florence, Italy</option>
-                                    <option>San Francisco, US</option>
-                                    <option>Remote</option>
+                                <select 
+                                    className="w-full bg-transparent focus:outline-none text-[#25324B] appearance-none font-bold cursor-pointer"
+                                    value={location}
+                                    onChange={(e) => setLocation(e.target.value)}
+                                >
+                                    <option value="">Any Location</option>
+                                    <option value="Florence, Italy">Florence, Italy</option>
+                                    <option value="San Francisco, US">San Francisco, US</option>
+                                    <option value="Remote">Remote</option>
                                 </select>
                             </div>
-                            <button className="btn bg-[#4640DE] hover:bg-[#392eb0] text-white border-none w-full md:w-auto px-10 py-4 h-auto text-[16px] font-bold rounded-lg normal-case shadow-lg shadow-indigo-200">Search my job</button>
+                            <button 
+                                onClick={handleSearch}
+                                className="btn bg-[#4640DE] hover:bg-[#392eb0] text-white border-none w-full md:w-auto px-10 py-4 h-auto text-[16px] font-bold rounded-lg normal-case shadow-lg shadow-indigo-200"
+                            >Search my job</button>
                         </div>
 
                         <p className="text-sm font-medium text-gray-400 mt-6 relative z-30">

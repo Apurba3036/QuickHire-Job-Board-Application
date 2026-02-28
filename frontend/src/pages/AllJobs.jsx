@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Search, MapPin, Filter } from 'lucide-react';
 import { getJobs } from '../services/api';
 import JobCard from '../components/JobCard';
@@ -7,13 +8,32 @@ import { motion } from 'framer-motion';
 
 export default function AllJobs() {
     const [jobs, setJobs] = useState([]);
+    const [filteredJobs, setFilteredJobs] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
         const fetchJobs = async () => {
             try {
                 const data = await getJobs();
                 setJobs(data);
+                
+                // Initial filtering based on URL params
+                const searchQuery = searchParams.get('search')?.toLowerCase() || '';
+                const locationQuery = searchParams.get('location')?.toLowerCase() || '';
+
+                const filtered = data.filter(job => {
+                    const matchSearch = searchQuery === '' || 
+                        job.title?.toLowerCase().includes(searchQuery) ||
+                        job.company?.toLowerCase().includes(searchQuery) ||
+                        job.tags?.some(tag => tag.toLowerCase().includes(searchQuery));
+                    
+                    const matchLocation = locationQuery === '' || 
+                        job.location?.toLowerCase().includes(locationQuery);
+
+                    return matchSearch && matchLocation;
+                });
+                setFilteredJobs(filtered);
             } catch (error) {
                 console.error("Failed to fetch jobs in overview", error);
             } finally {
@@ -22,7 +42,7 @@ export default function AllJobs() {
         };
 
         fetchJobs();
-    }, []);
+    }, [searchParams]);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -60,11 +80,18 @@ export default function AllJobs() {
                         animate="show"
                         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
                     >
-                        {jobs.map(job => (
-                            <motion.div key={job._id || job.id} variants={itemVariants}>
-                                <JobCard job={job} />
-                            </motion.div>
-                        ))}
+                        {filteredJobs.length > 0 ? (
+                            filteredJobs.map(job => (
+                                <motion.div key={job._id || job.id} variants={itemVariants}>
+                                    <JobCard job={job} />
+                                </motion.div>
+                            ))
+                        ) : (
+                            <div className="col-span-1 lg:col-span-2 text-center py-12">
+                                <h3 className="text-xl font-semibold text-gray-700 mb-2">No jobs found</h3>
+                                <p className="text-gray-500">We couldn't find any jobs matching your search criteria. Try adjusting your filters.</p>
+                            </div>
+                        )}
                     </motion.div>
                 )}
             </div>
