@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, MapPin, ArrowRight, PenTool, PieChart, Megaphone, Wallet, Monitor, Code, Briefcase, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 import JobCard from '../components/JobCard';
+import CompanyLogo from '../components/CompanyLogo';
 import { getJobs } from '../services/api';
 import { Link } from 'react-router-dom';
 
@@ -258,9 +259,11 @@ export default function Home() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 md:gap-y-6">
                         {loading ? null : displayLatest.map(job => (
                             <Link to={`/jobs/${job._id || job.id}`} key={`latest-${job._id || job.id}`} className="bg-white p-5 md:p-6 rounded-xl border border-gray-100 hover:border-blue-300 hover:shadow-lg transition-all duration-300 flex items-center gap-4 md:gap-6 group">
-                                <div className="w-14 h-14 md:w-20 md:h-20 rounded-xl bg-gray-50 flex items-center justify-center border border-gray-100 flex-shrink-0 text-2xl md:text-3xl font-extrabold text-blue-600 shadow-sm transition-transform">
-                                    {job.company?.[0] || 'C'}
-                                </div>
+                                <CompanyLogo 
+                                    company={job.company} 
+                                    logo={job.companyLogo} 
+                                    className="w-14 h-14 md:w-20 md:h-20 text-2xl md:text-3xl" 
+                                />
                                 <div className="flex-grow min-w-0">
                                     <h3 className="text-lg md:text-xl font-bold text-slate-800 mb-1 group-hover:text-[#4640DE] transition-colors truncate">{job.title}</h3>
                                     <p className="text-gray-400 text-xs md:text-sm mb-2 md:mb-3 font-medium truncate">{job.company} • {job.location}</p>

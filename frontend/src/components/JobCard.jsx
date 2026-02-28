@@ -1,23 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiClock } from 'react-icons/fi';
+import CompanyLogo from './CompanyLogo';
 
 export default function JobCard({ job, featured }) {
-    // Try to generate colors based on company name to match the colorful Figma logos
-    const logoColors = ['text-blue-600', 'text-indigo-600', 'text-stone-800', 'text-sky-500', 'text-red-500', 'text-teal-500'];
-    const logoBgColors = ['bg-blue-50/50', 'bg-indigo-50/50', 'bg-stone-50/50', 'bg-sky-50/50', 'bg-red-50/50', 'bg-teal-50/50'];
-    const colorIndex = job.company ? job.company.length % logoColors.length : 0;
-
     return (
         <div className={`bg-white rounded-xl border border-gray-100 p-8 flex flex-col transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1 ${featured ? 'h-full' : ''}`}>
             <div className="flex justify-between items-start mb-6">
-                <div className={`w-14 h-14 rounded-xl border border-gray-100 flex items-center justify-center text-3xl font-extrabold ${logoBgColors[colorIndex]} ${logoColors[colorIndex]}`}>
-                    {job.companyLogo ? (
-                        <img src={job.companyLogo} alt={job.company} className="w-full h-full object-contain p-2" />
-                    ) : (
-                        job.company?.[0] || 'C'
-                    )}
-                </div>
+                <CompanyLogo 
+                    company={job.company} 
+                    logo={job.companyLogo} 
+                    className="w-14 h-14 text-3xl" 
+                />
                 <span className="text-xs font-bold text-blue-600 border border-blue-200 bg-white px-3 py-1 rounded-full whitespace-nowrap">
                     {job.type || 'Full Time'}
                 </span>

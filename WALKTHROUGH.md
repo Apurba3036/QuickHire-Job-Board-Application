@@ -23,16 +23,28 @@ Both **Admin** and **User** dashboards are equipped with interactive charts powe
 
 ![User Dashboard](file:///C:/Users/BACBON%20COMPUTERS-01/.gemini/antigravity/brain/45b14a9d-1cf7-4e11-af16-eb8db0b196c6/user_dashboard.png)
 
+## 🏢 Corporate Identity Integration
+
+We have integrated an intelligent logo lookup system powered by the **Logo.dev API** that automatically fetches real company icons from the internet, giving the job board a premium, data-rich feel.
+
+![Corporate Logos](/C:/Users/BACBON%20COMPUTERS-01/.gemini/antigravity/brain/45b14a9d-1cf7-4e11-af16-eb8db0b196c6/latest_jobs_open_verified_1772236854885.png)
+
+**Key Features:**
+- **Smart Brand Lookup**: Uses the Logo.dev API with a unique authentication token for stable, high-quality icon delivery.
+- **Multi-Source Failover**: If the primary API is unreachable, the system automatically falls back to **Google's S2 Favicon service**.
+- **Graceful Fallback**: If all external sources fail, the system generates a high-contrast, professional-letter avatar based on the company name.
+- **Consistent Branding**: Standardized logo sizes and containers across All Jobs, Featured Jobs, and Latest Jobs sections.
+
 ## 📱 Mobile Responsiveness Overhaul
 
 The core user experience is now fully optimized for mobile devices, matching a premium, modern aesthetic.
 
 ````carousel
-![Mobile Navbar & Hero](file:///C:/Users/BACBON%20COMPUTERS-01/.gemini/antigravity/brain/45b14a9d-1cf7-4e11-af16-eb8db0b196c6/hero_navbar_mobile_1772234669305.png)
+![Mobile Navbar & Hero](/C:/Users/BACBON%20COMPUTERS-01/.gemini/antigravity/brain/45b14a9d-1cf7-4e11-af16-eb8db0b196c6/hero_navbar_mobile_1772234669305.png)
 <!-- slide -->
-![Mobile Category List](file:///C:/Users/BACBON%20COMPUTERS-01/.gemini/antigravity/brain/45b14a9d-1cf7-4e11-af16-eb8db0b196c6/category_list_mobile_1772234520303.png)
+![Mobile Category List](/C:/Users/BACBON%20COMPUTERS-01/.gemini/antigravity/brain/45b14a9d-1cf7-4e11-af16-eb8db0b196c6/category_list_mobile_1772234520303.png)
 <!-- slide -->
-![Mobile Footer & Socials](file:///C:/Users/BACBON%20COMPUTERS-01/.gemini/antigravity/brain/45b14a9d-1cf7-4e11-af16-eb8db0b196c6/footer_mobile_1772234559791.png)
+![Mobile Footer & Socials](/C:/Users/BACBON%20COMPUTERS-01/.gemini/antigravity/brain/45b14a9d-1cf7-4e11-af16-eb8db0b196c6/footer_mobile_1772234559791.png)
 ````
 
 **Key Mobile Enhancements:**

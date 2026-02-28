@@ -52,4 +52,8 @@
 - [x] Final verification across multiple viewport sizes
 - [x] Fix footer logo path in `Footer.jsx`
 
+## 8. Visual Enhancements (v3)
+- [x] Implement real company logos for job cards (Featured & Latest)
+- [x] Ensure robust fallback for missing logos (Logo.dev API & Google S2)
+
 ## All Tasks Completed Successfully.
