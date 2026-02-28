@@ -1,8 +1,8 @@
-import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import CompanyLogo from '../CompanyLogo';
+import LoadingSpinner from '../LoadingSpinner';
 
 export default function LatestJobsSection({ loading, displayLatest }) {
     return (
@@ -19,7 +19,11 @@ export default function LatestJobsSection({ loading, displayLatest }) {
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 md:gap-y-6">
-                    {loading ? null : displayLatest.map(job => (
+                    {loading ? (
+                        <div className="col-span-1 md:col-span-2 flex justify-center py-8">
+                            <LoadingSpinner size="3rem" />
+                        </div>
+                    ) : displayLatest.map(job => (
                         <Link to={`/jobs/${job._id || job.id}`} key={`latest-${job._id || job.id}`} className="bg-white p-5 md:p-6 rounded-xl border border-gray-100 hover:border-blue-300 hover:shadow-lg transition-all duration-300 flex items-center gap-4 md:gap-6 group">
                             <CompanyLogo 
                                 company={job.company} 

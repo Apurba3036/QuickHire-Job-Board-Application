@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getJobs, createJob, deleteJob } from '../services/api';
-import { Briefcase, Plus, Trash2, TrendingUp, Users, Eye } from 'lucide-react';
+import { getJobs, deleteJob } from '../services/api';
+import { Trash2, Edit, ExternalLink, RefreshCw, Plus, Briefcase, Users, Eye } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+import LoadingSpinner from '../components/LoadingSpinner';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -222,7 +224,7 @@ export default function AdminPanel() {
                         </thead>
                         <tbody>
                             {loading ? (
-                                <tr><td colSpan="5" className="text-center py-8"><span className="loading loading-spinner"></span></td></tr>
+                                <tr><td colSpan="5" className="text-center py-8"><LoadingSpinner /></td></tr>
                             ) : jobs.length === 0 ? (
                                 <tr><td colSpan="5" className="text-center py-8 text-gray-500">No jobs posted yet.</td></tr>
                             ) : jobs.map((job) => (

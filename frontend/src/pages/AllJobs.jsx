@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Search, MapPin, Filter } from 'lucide-react';
 import { getJobs } from '../services/api';
 import JobCard from '../components/JobCard';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { motion } from 'framer-motion';
 
 export default function AllJobs() {
@@ -48,8 +50,8 @@ export default function AllJobs() {
                 </motion.div>
 
                 {loading ? (
-                    <div className="flex justify-center items-center py-32">
-                        <span className="loading loading-spinner text-[#4834D4] w-14 h-14"></span>
+                    <div className="flex justify-center items-center py-20 min-h-[300px]">
+                        <LoadingSpinner size="4rem" />
                     </div>
                 ) : (
                     <motion.div

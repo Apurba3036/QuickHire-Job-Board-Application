@@ -1,8 +1,8 @@
-import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import JobCard from '../JobCard';
+import LoadingSpinner from '../LoadingSpinner';
 
 export default function FeaturedJobsSection({ loading, jobs, displayFeatured }) {
     return (
@@ -19,7 +19,7 @@ export default function FeaturedJobsSection({ loading, jobs, displayFeatured }) 
                 </motion.div>
 
                 {loading ? (
-                    <div className="flex justify-center p-12"><span className="loading loading-spinner text-primary loading-lg"></span></div>
+                    <div className="flex justify-center p-12"><LoadingSpinner size="4rem" /></div>
                 ) : jobs.length === 0 ? (
                     <p className="text-gray-500 text-center py-8">No jobs available right now.</p>
                 ) : (

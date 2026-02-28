@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "../firebase";
 import { onAuthStateChanged, signOut as firebaseSignOut } from "firebase/auth";
 import { syncUser } from "../services/api";
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const AuthContext = createContext();
 
@@ -57,7 +58,7 @@ export function AuthProvider({ children }) {
 
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {loading ? <LoadingSpinner fullScreen /> : children}
         </AuthContext.Provider>
     );
 }

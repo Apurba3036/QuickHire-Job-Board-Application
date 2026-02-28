@@ -3,6 +3,7 @@ import { Outlet, Link, useLocation, useNavigate, Navigate } from 'react-router-d
 import { FiHome, FiMessageSquare, FiBriefcase, FiUsers, FiList, FiCalendar, FiSettings, FiHelpCircle, FiBell, FiPlus, FiChevronDown } from 'react-icons/fi';
 import { BsHexagonFill } from "react-icons/bs";
 import { useAuth } from '../context/AuthContext';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function DashboardLayout() {
     const location = useLocation();
@@ -32,7 +33,7 @@ export default function DashboardLayout() {
     };
 
     if (loading) {
-        return <div className="min-h-screen flex items-center justify-center bg-[#F8FAFC]"><span className="loading loading-spinner text-[#4834D4] w-12 h-12"></span></div>;
+        return <LoadingSpinner fullScreen />;
     }
 
     if (!user) {

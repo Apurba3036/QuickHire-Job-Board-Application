@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ApplicationModal from '../components/ApplicationModal';
 import { getJobById } from '../services/api';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { FiMapPin, FiBriefcase, FiDollarSign, FiClock, FiShare2, FiBookmark } from 'react-icons/fi';
 
 export default function JobDetails() {
@@ -25,7 +26,7 @@ export default function JobDetails() {
     }, [id]);
 
     if (loading) {
-        return <div className="container mx-auto py-20 text-center"><span className="loading loading-spinner text-primary loading-lg"></span></div>;
+        return <div className="container mx-auto py-20 text-center"><LoadingSpinner size="4rem" /></div>;
     }
 
     if (!job) {

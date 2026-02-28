@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { applyForJob } from '../services/api';
 import { useOutletContext } from 'react-router-dom';
+import LoadingSpinner from './LoadingSpinner';
 
 export default function ApplicationModal({ job, onClose }) {
     const { user } = useOutletContext() || {};
@@ -101,7 +102,7 @@ export default function ApplicationModal({ job, onClose }) {
                     <div className="mt-6 flex gap-4 justify-end">
                         <button type="button" onClick={onClose} className="btn btn-ghost" disabled={loading}>Cancel</button>
                         <button type="submit" className="btn btn-primary px-8" disabled={loading}>
-                            {loading ? <span className="loading loading-spinner loading-sm"></span> : 'Submit Application'}
+                            {loading ? <LoadingSpinner size="1.25rem" color="white" /> : 'Submit Application'}
                         </button>
                     </div>
                 </form>
