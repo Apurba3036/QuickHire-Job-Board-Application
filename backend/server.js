@@ -30,10 +30,16 @@ app.use(cors({
 const jobRoutes = require("./routes/jobRoutes");
 const applicationRoutes = require("./routes/applicationRoutes");
 const authRoutes = require("./routes/authRoutes");
+const peopleRoutes = require("./routes/peopleRoutes");
+const hiringSiteRoutes = require("./routes/hiringSiteRoutes");
+const resumeRoutes = require("./routes/resumeRoutes");
 
 app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/people", peopleRoutes);
+app.use("/api/hiring-sites", hiringSiteRoutes);
+app.use("/api/resumes", resumeRoutes);
 
 // Connect to MongoDB
 const connectDB = async () => {

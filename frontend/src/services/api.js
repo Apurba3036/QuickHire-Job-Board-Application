@@ -45,4 +45,20 @@ export const getUserInfo = async () => {
     return res.data;
 };
 
+// Newly added routes
+export const getPeople = async () => {
+    const res = await api.get('/people');
+    return res.data;
+};
+
+export const getHiringSites = async () => {
+    const res = await api.get('/hiring-sites');
+    return res.data;
+};
+
+export const getResumes = async () => {
+    const res = await api.get('/resumes');
+    return res.data;
+};
+
 export default api;

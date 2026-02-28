@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const Job = require('./models/Job');
+const Person = require('./models/Person');
+const HiringSite = require('./models/HiringSite');
+const Resume = require('./models/Resume');
 
 dotenv.config();
 
 const dummyJobs = [
-    // Featured Jobs
+    // ... [Original dummy jobs retained]
     {
         title: "Email Marketing",
         company: "Principle",
@@ -41,99 +44,36 @@ const dummyJobs = [
         category: "Design",
         tags: ["Design"],
         description: "Twitter is looking for a Visual Designer to help us build.",
-    },
-    {
-        title: "Product Designer",
-        company: "Microsoft",
-        location: "Victoria, Australia",
-        type: "Full-Time",
-        category: "Design",
-        tags: ["Marketing", "Design"],
-        description: "Microsoft is looking for a Product Designer.",
-    },
-    {
-        title: "Lead Designer",
-        company: "Canva",
-        location: "Ontario, Canada",
-        type: "Full-Time",
-        category: "Design",
-        tags: ["Design", "Business"],
-        description: "Canva is looking for a Lead Designer.",
-    },
-    {
-        title: "Brand Strategist",
-        company: "Webflow",
-        location: "Madrid, Spain",
-        type: "Full-Time",
-        category: "Marketing",
-        tags: ["Marketing"],
-        description: "Webflow is looking for a Brand Strategist.",
-    },
-    {
-        title: "Data Analyst",
-        company: "Twitter",
-        location: "San Bruno, CA",
-        type: "Full-Time",
-        category: "Business",
-        tags: ["Business"],
-        description: "Twitter is looking for a Data Analyst.",
-    },
-
-    // Latest Jobs
-    {
-        title: "Social Media Assistant",
-        company: "Nomad",
-        location: "Paris, France",
-        type: "Full-Time",
-        category: "Marketing",
-        tags: ["Marketing", "Design"],
-        description: "Nomad is looking for a Social Media Assistant.",
-    },
-    {
-        title: "Social Media Assistant",
-        company: "Netlify",
-        location: "Paris, France",
-        type: "Full-Time",
-        category: "Marketing",
-        tags: ["Marketing", "Design"],
-        description: "Netlify is looking for a Social Media Assistant.",
-    },
-    {
-        title: "Brand Designer",
-        company: "Maze",
-        location: "San Francisco, US",
-        type: "Full-Time",
-        category: "Design",
-        tags: ["Marketing", "Design"],
-        description: "Maze is looking for a Brand Designer.",
-    },
-    {
-        title: "Interactive Developer",
-        company: "Terraform",
-        location: "Hamburg, Germany",
-        type: "Full-Time",
-        category: "Engineering",
-        tags: ["Marketing", "Design"],
-        description: "Terraform is looking for an Interactive Developer.",
-    },
-    {
-        title: "Interactive Developer",
-        company: "Udacity",
-        location: "Hamburg, Germany",
-        type: "Full-Time",
-        category: "Engineering",
-        tags: ["Marketing", "Design"],
-        description: "Udacity is looking for an Interactive Developer.",
-    },
-    {
-        title: "HR Manager",
-        company: "Packer",
-        location: "Lucerne, Switzerland",
-        type: "Full-Time",
-        category: "Human Resources",
-        tags: ["Marketing", "Design"],
-        description: "Packer is looking for an HR Manager.",
     }
+];
+
+const dummyPeople = [
+    { name: "Alice Johnson", role: "Software Engineer", location: "New York, USA", profilePic: "https://i.pravatar.cc/150?u=alice", skills: ["React", "Node.js", "MongoDB"] },
+    { name: "Bob Smith", role: "Product Manager", location: "London, UK", profilePic: "https://i.pravatar.cc/150?u=bob", skills: ["Strategy", "Agile", "Roadmapping"] },
+    { name: "Charlie Davis", role: "UX Designer", location: "Berlin, Germany", profilePic: "https://i.pravatar.cc/150?u=charlie", skills: ["Figma", "Prototyping", "User Research"] },
+    { name: "Diana Prince", role: "Data Scientist", location: "Toronto, Canada", profilePic: "https://i.pravatar.cc/150?u=diana", skills: ["Python", "Machine Learning", "SQL"] },
+    { name: "Eve Adams", role: "Marketing Specialist", location: "Sydney, Australia", profilePic: "https://i.pravatar.cc/150?u=eve", skills: ["SEO", "Content Marketing", "Analytics"] },
+    { name: "Frank Wright", role: "DevOps Engineer", location: "San Francisco, USA", profilePic: "https://i.pravatar.cc/150?u=frank", skills: ["AWS", "Docker", "Kubernetes"] },
+    { name: "Grace Hopper", role: "Backend Developer", location: "Chicago, USA", profilePic: "https://i.pravatar.cc/150?u=grace", skills: ["Java", "Spring Boot", "Microservices"] },
+    { name: "Hank Pym", role: "Frontend Developer", location: "Austin, USA", profilePic: "https://i.pravatar.cc/150?u=hank", skills: ["Vue.js", "Tailwind CSS", "TypeScript"] }
+];
+
+const dummyHiringSites = [
+    { name: "LinkedIn", url: "https://linkedin.com", description: "The world's largest professional network." },
+    { name: "Indeed", url: "https://indeed.com", description: "The #1 job site in the world." },
+    { name: "Glassdoor", url: "https://glassdoor.com", description: "Find the job that fits your life." },
+    { name: "Monster", url: "https://monster.com", description: "Find the right job, right now." },
+    { name: "ZipRecruiter", url: "https://ziprecruiter.com", description: "The smartest way to hire and get hired." },
+    { name: "SimplyHired", url: "https://simplyhired.com", description: "Job search engine." }
+];
+
+const dummyResumes = [
+    { userName: "Alice Johnson", jobTitle: "Software Engineer", url: "https://example.com/resume/alice.pdf" },
+    { userName: "Bob Smith", jobTitle: "Product Manager", url: "https://example.com/resume/bob.pdf" },
+    { userName: "Charlie Davis", jobTitle: "UX Designer", url: "https://example.com/resume/charlie.pdf" },
+    { userName: "Diana Prince", jobTitle: "Data Scientist", url: "https://example.com/resume/diana.pdf" },
+    { userName: "Eve Adams", jobTitle: "Marketing Specialist", url: "https://example.com/resume/eve.pdf" },
+    { userName: "Frank Wright", jobTitle: "DevOps Engineer", url: "https://example.com/resume/frank.pdf" }
 ];
 
 const seedDB = async () => {
@@ -141,11 +81,17 @@ const seedDB = async () => {
         await mongoose.connect(process.env.MONGO_URI);
         console.log("MongoDB connected");
 
-        await Job.deleteMany(); // Clear existing
-        console.log("Old jobs cleared");
+        await Job.deleteMany();
+        await Person.deleteMany();
+        await HiringSite.deleteMany();
+        await Resume.deleteMany();
+        console.log("Old data cleared");
 
         await Job.insertMany(dummyJobs);
-        console.log("Database seeded successfully with Figma dummy data!");
+        await Person.insertMany(dummyPeople);
+        await HiringSite.insertMany(dummyHiringSites);
+        await Resume.insertMany(dummyResumes);
+        console.log("Database seeded successfully with all dummy data!");
 
         mongoose.connection.close();
     } catch (err) {
