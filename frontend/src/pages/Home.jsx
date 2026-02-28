@@ -27,10 +27,10 @@ export default function Home() {
     }, []);
 
     // Filter featured vs latest for layout
-    const featuredJobs = jobs.filter(j => j.tags?.includes('Design') || j.tags?.includes('Marketing')).slice(0, 8);
+    const featuredJobs = jobs.filter(j => j.tags?.includes('Design') || j.tags?.includes('Marketing')).slice(0, 4);
     // If not enough tagged, just fall back
-    const displayFeatured = featuredJobs.length >= 4 ? featuredJobs.slice(0, 8) : jobs.slice(0, 8);
-    const displayLatest = jobs.slice(0, 6);
+    const displayFeatured = featuredJobs.length >= 4 ? featuredJobs.slice(0, 4) : jobs.slice(0, 4);
+    const displayLatest = jobs.slice(0, 4);
 
     return (
         <div className="w-full font-sans">

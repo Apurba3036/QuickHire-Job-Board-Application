@@ -8,43 +8,26 @@ const Resume = require('./models/Resume');
 dotenv.config();
 
 const dummyJobs = [
-    // ... [Original dummy jobs retained]
-    {
-        title: "Email Marketing",
-        company: "Principle",
-        location: "Madrid, Spain",
-        type: "Part-Time",
-        category: "Marketing",
-        tags: ["Marketing", "Design"],
-        description: "Principle is looking for an Email Marketing Specialist to join the team.",
-    },
-    {
-        title: "Brand Designer",
-        company: "Dropbox",
-        location: "San Francisco, US",
-        type: "Full-Time",
-        category: "Design",
-        tags: ["Design", "Business"],
-        description: "Dropbox is looking for a Brand Designer to help shape the future.",
-    },
-    {
-        title: "Email Marketing",
-        company: "Twitch",
-        location: "Paris, France",
-        type: "Full-Time",
-        category: "Marketing",
-        tags: ["Marketing"],
-        description: "Twitch is looking for an Email Marketing specialist.",
-    },
-    {
-        title: "Visual Designer",
-        company: "Twitter",
-        location: "Victoria, Australia",
-        type: "Full-Time",
-        category: "Design",
-        tags: ["Design"],
-        description: "Twitter is looking for a Visual Designer to help us build.",
-    }
+    { title: "Senior Frontend Engineer", company: "Stripe", location: "San Francisco, CA", type: "Full-Time", category: "Engineering", tags: ["React", "TypeScript", "Frontend"], description: "Join our core payments team." },
+    { title: "Backend API Developer", company: "Netflix", location: "Remote", type: "Full-Time", category: "Engineering", tags: ["Node.js", "Java", "Backend"], description: "Scale the backend architecture that serves millions." },
+    { title: "Principal Product Designer", company: "Figma", location: "New York, NY", type: "Full-Time", category: "Design", tags: ["UI/UX", "Prototyping", "Design"], description: "Help build the future of collaborative design tools." },
+    { title: "Growth Marketing Manager", company: "Spotify", location: "Stockholm, Sweden", type: "Full-Time", category: "Marketing", tags: ["Growth", "Analytics"], description: "Drive user acquisition strategies globally." },
+    { title: "Data Scientist", company: "Airbnb", location: "Seattle, WA", type: "Full-Time", category: "Data", tags: ["Python", "Machine Learning", "Data"], description: "Optimize pricing algorithms and matching." },
+    { title: "iOS Developer", company: "Uber", location: "London, UK", type: "Contract", category: "Engineering", tags: ["Swift", "Mobile"], description: "Build the next generation rider experience." },
+    { title: "DevOps Engineer", company: "AWS", location: "Austin, TX", type: "Full-Time", category: "Engineering", tags: ["AWS", "Kubernetes", "CI/CD"], description: "Maintain critical cloud infrastructure." },
+    { title: "Technical Writer", company: "Notion", location: "Remote", type: "Part-Time", category: "Content", tags: ["Writing", "Documentation"], description: "Create guides and docs for power users." },
+    { title: "Brand Designer", company: "Dropbox", location: "San Francisco, US", type: "Full-Time", category: "Design", tags: ["Design", "Branding"], description: "Dropbox is looking for a Brand Designer to help shape the future." },
+    { title: "Email Marketing Specialist", company: "Twitch", location: "Paris, France", type: "Full-Time", category: "Marketing", tags: ["Email", "Campaigns"], description: "Twitch is looking for an Email Marketing specialist." },
+    { title: "Visual Designer", company: "Twitter", location: "Sydney, Australia", type: "Contract", category: "Design", tags: ["Design", "Visuals"], description: "Help us build engaging visual content." },
+    { title: "Software Engineer Intern", company: "Google", location: "Mountain View, CA", type: "Internship", category: "Engineering", tags: ["C++", "Java", "Intern"], description: "Summer 2026 Software Engineering Internship." },
+    { title: "Android Developer", company: "Robinhood", location: "Menlo Park, CA", type: "Full-Time", category: "Engineering", tags: ["Kotlin", "Mobile"], description: "Democratize finance for all." },
+    { title: "UX Researcher", company: "Zoom", location: "Remote", type: "Full-Time", category: "Design", tags: ["Research", "User Testing"], description: "Understand how people communicate." },
+    { title: "Community Manager", company: "Discord", location: "San Francisco, CA", type: "Full-Time", category: "Marketing", tags: ["Community", "Social"], description: "Manage our largest gaming partnerships." },
+    { title: "Security Analyst", company: "Cloudflare", location: "Remote", type: "Contract", category: "Engineering", tags: ["Security", "Network"], description: "Protect millions of websites from attacks." },
+    { title: "Sales Executive", company: "Salesforce", location: "Chicago, IL", type: "Full-Time", category: "Sales", tags: ["B2B", "SaaS"], description: "Enterprise software sales." },
+    { title: "VP of Engineering", company: "Vercel", location: "Remote", type: "Full-Time", category: "Management", tags: ["Leadership", "Next.js"], description: "Lead the open source and platform teams." },
+    { title: "Content Strategist", company: "Pinterest", location: "Los Angeles, CA", type: "Full-Time", category: "Content", tags: ["Strategy", "SEO"], description: "Shape our content discovery engine." },
+    { title: "Machine Learning Engineer", company: "OpenAI", location: "San Francisco, CA", type: "Full-Time", category: "Engineering", tags: ["AI", "PyTorch"], description: "Train next generation foundational models." }
 ];
 
 const dummyPeople = [
