@@ -52,10 +52,16 @@ const connectDB = async () => {
     }
 };
 
+const http = require("http");
+const { initSocket } = require("./utils/socketLogic");
+
+const server = http.createServer(app);
+initSocket(server);
+
 const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
     });
 });

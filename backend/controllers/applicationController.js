@@ -1,5 +1,6 @@
 const Application = require('../models/Application');
 const User = require('../models/User');
+const { getIO } = require('../utils/socketLogic');
 
 // Submit job application
 exports.applyJob = async (req, res) => {
@@ -31,6 +32,19 @@ exports.applyJob = async (req, res) => {
         });
 
         const savedApplication = await newApplication.save();
+
+        // Emit notification to admins (or broadcast for now)
+        try {
+            const io = getIO();
+            io.emit('notification', {
+                type: 'NEW_APPLICATION',
+                message: `New application received for job from ${name}`,
+                data: savedApplication
+            });
+        } catch (err) {
+            console.error("Socket emit failed", err.message);
+        }
+
         res.status(201).json({ message: "Application submitted successfully", application: savedApplication });
 
     } catch (err) {

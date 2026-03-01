@@ -3,13 +3,16 @@ import { Outlet, Link, useLocation, useNavigate, Navigate } from 'react-router-d
 import { FiHome, FiMessageSquare, FiBriefcase, FiUsers, FiList, FiCalendar, FiSettings, FiHelpCircle, FiBell, FiPlus, FiChevronDown, FiMenu, FiX } from 'react-icons/fi';
 import { BsHexagonFill } from "react-icons/bs";
 import { useAuth } from '../context/AuthContext';
+import { useNotifications } from '../context/NotificationContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 export default function DashboardLayout() {
     const location = useLocation();
     const navigate = useNavigate();
     const { user, logout, loading } = useAuth();
+    const { notifications, unreadCount, markAllAsRead } = useNotifications();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
     // Helper to check active route
     const isActive = (path) => location.pathname.startsWith(path);
@@ -153,11 +156,52 @@ export default function DashboardLayout() {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-3 md:gap-6">
-                        <button className="text-gray-400 hover:text-gray-600 relative">
-                            <FiBell className="text-xl" />
-                            <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-                        </button>
+                    <div className="flex items-center gap-3 md:gap-6 relative">
+                        <div className="relative">
+                            <button 
+                                onClick={() => {
+                                    console.log('Notification bell clicked, current state:', isNotificationOpen);
+                                    setIsNotificationOpen(!isNotificationOpen);
+                                    if (!isNotificationOpen) markAllAsRead();
+                                }}
+                                className="text-gray-400 hover:text-gray-600 relative p-1"
+                            >
+                                <FiBell className="text-xl" />
+                                {unreadCount > 0 && (
+                                    <span className="absolute top-0 right-0 w-4 h-4 bg-red-500 text-white text-[10px] flex items-center justify-center rounded-full border-2 border-white font-bold">
+                                        {unreadCount}
+                                    </span>
+                                )}
+                            </button>
+
+                            {/* Notification Dropdown */}
+                            {isNotificationOpen && (
+                                <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden">
+                                    <div className="p-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                                        <h3 className="font-bold text-gray-800">Notifications</h3>
+                                        <button onClick={() => setIsNotificationOpen(false)} className="text-gray-400 hover:text-gray-600">
+                                            <FiX />
+                                        </button>
+                                    </div>
+                                    <div className="max-h-96 overflow-y-auto">
+                                        {notifications.length === 0 ? (
+                                            <div className="p-8 text-center text-gray-400">
+                                                <p className="text-sm">No new notifications</p>
+                                            </div>
+                                        ) : (
+                                            <div className="divide-y divide-gray-50">
+                                                {notifications.map((notif, idx) => (
+                                                    <div key={idx} className="p-4 hover:bg-gray-50 transition-colors">
+                                                        <p className="text-sm text-gray-800 font-medium">{notif.message}</p>
+                                                        <p className="text-xs text-gray-400 mt-1">Just now</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                         {user?.role === 'admin' && (
                             <Link to="/admin/post-job" className="btn bg-[#4834D4] hover:bg-[#392eb0] text-white border-none h-10 min-h-0 px-4 md:px-6 font-bold flex items-center gap-2 rounded-lg normal-case shadow-lg shadow-[#4834D4]/30 text-sm">
                                 <FiPlus className="text-lg" /> <span className="hidden xs:inline">Post job</span>
