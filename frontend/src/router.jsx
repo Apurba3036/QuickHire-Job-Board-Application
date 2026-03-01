@@ -7,6 +7,7 @@ import People from "./pages/People";
 import HiringSites from "./pages/HiringSites";
 import Resumes from "./pages/Resumes";
 import AdminPanel from "./pages/AdminPanel";
+import AdminPostJob from "./pages/AdminPostJob";
 import UserDashboard from "./pages/UserDashboard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
                 element: <DashboardLayout />,
                 children: [
                     { path: "/admin", element: <AdminPanel /> },
+                    { path: "/admin/post-job", element: <AdminPostJob /> },
                     { path: "/dashboard", element: <UserDashboard /> },
                     { path: "/messages", element: <Messages /> },
                     { path: "/profile", element: <Profile /> },

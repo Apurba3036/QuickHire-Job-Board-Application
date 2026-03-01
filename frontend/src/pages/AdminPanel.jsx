@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getJobs, deleteJob } from '../services/api';
+import { getJobs, deleteJob, createJob } from '../services/api';
 import { Trash2, Edit, ExternalLink, RefreshCw, Plus, Briefcase, Users, Eye } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
@@ -28,10 +28,6 @@ ChartJS.register(
 export default function AdminPanel() {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [showAddForm, setShowAddForm] = useState(false);
-    const [newJob, setNewJob] = useState({
-        title: '', company: '', location: '', category: '', type: 'Full Time', description: ''
-    });
 
     useEffect(() => {
         fetchJobs();
@@ -71,27 +67,6 @@ export default function AdminPanel() {
         }
     };
 
-    const handleInputChange = (e) => {
-        setNewJob({ ...newJob, [e.target.name]: e.target.value });
-    };
-
-    const handleAddJob = async (e) => {
-        e.preventDefault();
-        try {
-            const jobToAdd = {
-                ...newJob,
-                tags: [newJob.category]
-            };
-            const created = await createJob(jobToAdd);
-            setJobs([created, ...jobs]);
-            setShowAddForm(false);
-            setNewJob({ title: '', company: '', location: '', category: '', type: 'Full Time', description: '' });
-            toast.success("Job posted successfully!");
-        } catch (err) {
-            console.error("Failed to add job", err);
-            toast.error("Failed to create job.");
-        }
-    };
 
     return (
         <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 py-4 md:py-8">
@@ -100,14 +75,13 @@ export default function AdminPanel() {
                     <h1 className="text-2xl md:text-3xl font-extrabold text-gray-800 tracking-tight">Admin Dashboard</h1>
                     <p className="text-gray-500 text-xs md:text-sm mt-1">Overview and management of your listings</p>
                 </div>
-                <button onClick={() => setShowAddForm(!showAddForm)} className="btn bg-[#4834D4] hover:bg-[#392eb0] text-white border-none flex items-center gap-2 rounded-lg px-4 md:px-6 w-full sm:w-auto justify-center text-sm md:text-base h-11 min-h-0">
-                    <Plus className="w-5 h-5 font-bold" /> {showAddForm ? 'Cancel' : 'Create New Job'}
-                </button>
+                <Link to="/admin/post-job" className="btn bg-[#4834D4] hover:bg-[#392eb0] text-white border-none flex items-center gap-2 rounded-lg px-4 md:px-6 w-full sm:w-auto justify-center text-sm md:text-base h-11 min-h-0">
+                    <Plus className="w-5 h-5 font-bold" /> Create New Job
+                </Link>
             </div>
 
-            {/* Mock Analytics Section */}
-            {!showAddForm && (
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            {/* Analytics Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                     <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col">
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-lg font-bold text-gray-800">Application Statistics</h2>
@@ -171,45 +145,6 @@ export default function AdminPanel() {
                         </div>
                     </div>
                 </div>
-            )}
-
-            {showAddForm && (
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8 mb-8">
-                    <h2 className="text-xl font-bold mb-6 border-b pb-4">Create Job Listing</h2>
-                    <form onSubmit={handleAddJob} className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                        <div className="form-control w-full">
-                            <label className="label"><span className="label-text font-semibold">Job Title *</span></label>
-                            <input type="text" name="title" required value={newJob.title} onChange={handleInputChange} className="input input-bordered w-full" placeholder="e.g. Senior Frontend Developer" />
-                        </div>
-                        <div className="form-control w-full">
-                            <label className="label"><span className="label-text font-semibold">Company Name *</span></label>
-                            <input type="text" name="company" required value={newJob.company} onChange={handleInputChange} className="input input-bordered w-full" placeholder="e.g. Acme Corp" />
-                        </div>
-                        <div className="form-control w-full">
-                            <label className="label"><span className="label-text font-semibold">Location *</span></label>
-                            <input type="text" name="location" required value={newJob.location} onChange={handleInputChange} className="input input-bordered w-full" placeholder="e.g. New York, Remote" />
-                        </div>
-                        <div className="form-control w-full">
-                            <label className="label"><span className="label-text font-semibold">Category *</span></label>
-                            <select name="category" value={newJob.category} onChange={handleInputChange} className="select select-bordered w-full">
-                                <option value="" disabled>Select Category</option>
-                                <option value="Engineering">Engineering</option>
-                                <option value="Design">Design</option>
-                                <option value="Marketing">Marketing</option>
-                                <option value="Finance">Finance</option>
-                            </select>
-                        </div>
-                        <div className="form-control w-full md:col-span-2">
-                            <label className="label"><span className="label-text font-semibold">Job Description *</span></label>
-                            <textarea name="description" required value={newJob.description} onChange={handleInputChange} className="textarea textarea-bordered h-32" placeholder="Describe the role..."></textarea>
-                        </div>
-                        <div className="md:col-span-2 flex justify-end gap-3">
-                            <button type="button" onClick={() => setShowAddForm(false)} className="btn btn-ghost">Cancel</button>
-                            <button type="submit" className="btn btn-primary px-8">Publish Job</button>
-                        </div>
-                    </form>
-                </div>
-            )}
 
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="overflow-x-auto">
