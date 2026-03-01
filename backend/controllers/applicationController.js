@@ -1,4 +1,5 @@
 const Application = require('../models/Application');
+const User = require('../models/User');
 
 // Submit job application
 exports.applyJob = async (req, res) => {
@@ -10,9 +11,19 @@ exports.applyJob = async (req, res) => {
             return res.status(400).json({ message: "Missing required fields" });
         }
 
+        let finalUserId = user_id;
+        
+        // If user_id is null, try to find user by email
+        if (!finalUserId) {
+            const existingUser = await User.findOne({ email });
+            if (existingUser) {
+                finalUserId = existingUser._id;
+            }
+        }
+
         const newApplication = new Application({
             job_id,
-            user_id, // could be null if guest applying
+            user_id: finalUserId,
             name,
             email,
             resume_link,
@@ -33,6 +44,37 @@ exports.getApplicationsByJob = async (req, res) => {
         const applications = await Application.find({ job_id: req.params.jobId }).populate('user_id', 'name email');
         res.status(200).json(applications);
     } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+// Get applications for a user
+exports.getUserApplications = async (req, res) => {
+    try {
+        console.log("Fetching applications for user ID:", req.user.id);
+        
+        const user = await User.findById(req.user.id);
+        if (!user) {
+            console.error("User not found in DB for ID:", req.user.id);
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        console.log("Found user email:", user.email);
+
+        // Find by user_id OR email to capture historical guest applications
+        const applications = await Application.find({
+            $or: [
+                { user_id: user._id },
+                { email: user.email }
+            ]
+        })
+        .populate('job_id')
+        .sort({ createdAt: -1 });
+        
+        console.log(`Found ${applications.length} applications for user ${user.email}`);
+        res.status(200).json(applications);
+    } catch (err) {
+        console.error("Error in getUserApplications:", err);
         res.status(500).json({ message: err.message });
     }
 };

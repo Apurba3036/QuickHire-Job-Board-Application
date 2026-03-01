@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { auth, googleProvider } from '../firebase';
 import { signInWithPopup, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { ArrowLeft } from 'lucide-react';
 import loginImg from '../assets/login.jpg';
 
 export default function Signup() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const redirectTo = searchParams.get('redirectTo') || '/';
     const [nameInput, setNameInput] = useState('');
     const [emailInput, setEmailInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
@@ -16,7 +18,7 @@ export default function Signup() {
     const handleGoogleSignup = async () => {
         try {
             await signInWithPopup(auth, googleProvider);
-            navigate('/');
+            navigate(redirectTo);
         } catch (error) {
             console.error("Google Signup failed:", error);
             setError("Failed to sign up with Google.");
@@ -35,7 +37,7 @@ export default function Signup() {
             });
 
             // AuthContext will automatically trigger the backend sync passing this new display name
-            navigate('/');
+            navigate(redirectTo);
         } catch (error) {
             console.error("Email Signup failed:", error);
             if (error.code === 'auth/email-already-in-use') {
@@ -137,7 +139,7 @@ export default function Signup() {
                     </div>
 
                     <p className="mt-8 text-center text-sm text-gray-600">
-                        Already have an account? <Link to="/login" className="text-[#3b82f6] font-semibold hover:underline">Log in</Link>
+                        Already have an account? <Link to={`/login${redirectTo !== '/' ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`} className="text-[#3b82f6] font-semibold hover:underline">Log in</Link>
                     </p>
                 </div>
             </div>

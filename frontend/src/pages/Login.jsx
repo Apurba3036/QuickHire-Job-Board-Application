@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { auth, googleProvider } from '../firebase';
 import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { ArrowLeft } from 'lucide-react';
 import loginImg from '../assets/login.jpg';
 
 export default function Login() {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const redirectTo = searchParams.get('redirectTo') || '/';
     const [emailInput, setEmailInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
     const [error, setError] = useState(null);
@@ -15,7 +17,7 @@ export default function Login() {
     const handleGoogleLogin = async () => {
         try {
             await signInWithPopup(auth, googleProvider);
-            navigate('/');
+            navigate(redirectTo);
         } catch (error) {
             console.error("Google Login failed:", error);
             setError("Failed to login with Google.");
@@ -27,7 +29,7 @@ export default function Login() {
         setError(null);
         try {
             await signInWithEmailAndPassword(auth, emailInput, passwordInput);
-            navigate('/');
+            navigate(redirectTo);
         } catch (error) {
             console.error("Email Login failed:", error);
             setError("Invalid email or password.");
@@ -121,7 +123,7 @@ export default function Login() {
                     </div>
 
                     <p className="mt-8 text-center text-sm text-gray-600">
-                        Don't have an account? <Link to="/signup" className="text-[#3b82f6] font-semibold hover:underline">Sign up for free</Link>
+                        Don't have an account? <Link to={`/signup${redirectTo !== '/' ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`} className="text-[#3b82f6] font-semibold hover:underline">Sign up for free</Link>
                     </p>
                 </div>
             </div>

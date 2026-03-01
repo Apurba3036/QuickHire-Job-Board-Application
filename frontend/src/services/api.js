@@ -30,6 +30,11 @@ export const applyForJob = async (applicationData) => {
     return res.data;
 };
 
+export const getUserApplications = async () => {
+    const res = await api.get('/applications/user');
+    return res.data;
+};
+
 export const syncUser = async (userData) => {
     const res = await api.post('/auth/sync', userData);
     return res.data;

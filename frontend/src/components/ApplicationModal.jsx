@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { applyForJob } from '../services/api';
-import { useOutletContext } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import LoadingSpinner from './LoadingSpinner';
 
 export default function ApplicationModal({ job, onClose }) {
-    const { user } = useOutletContext() || {};
+    const { user } = useAuth();
 
     const [formData, setFormData] = useState({
         name: user?.name || '',
