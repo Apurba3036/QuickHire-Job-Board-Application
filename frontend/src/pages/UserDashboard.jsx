@@ -59,10 +59,10 @@ export default function UserDashboard() {
     if (loading) return <LoadingSpinner fullScreen />;
 
     return (
-        <div className="w-full max-w-7xl mx-auto px-4 py-8">
-            <div className="mb-8">
-                <h1 className="text-3xl font-extrabold text-gray-800 tracking-tight">Welcome back, {user?.name || 'User'}!</h1>
-                <p className="text-gray-500 text-sm mt-1">Here is the status of your recent applications.</p>
+        <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 py-4 md:py-8">
+            <div className="mb-6 md:mb-8">
+                <h1 className="text-2xl md:text-3xl font-extrabold text-gray-800 tracking-tight">Welcome back, {user?.name || 'User'}!</h1>
+                <p className="text-gray-500 text-xs md:text-sm mt-1">Here is the status of your recent applications.</p>
             </div>
 
             {/* Stats Grid & Chart Sidebar */}

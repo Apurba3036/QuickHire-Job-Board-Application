@@ -95,9 +95,9 @@ export default function HeroSection() {
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="relative hidden lg:flex items-end justify-center z-10 w-full h-full min-h-[500px]"
+                        className="relative hidden lg:flex items-end justify-center z-10 w-full h-full min-h-[600px]"
                     >
-                        <img src={heroMan} alt="Professional Job Seeker" className="absolute bottom-0 z-10 w-[95%] max-w-[550px] object-contain drop-shadow-2xl translate-x-12" />
+                        <img src={heroMan} alt="Professional Job Seeker" className="absolute mb-10 bottom-0 z-10 w-[110%] max-w-[700px] object-contain drop-shadow-2xl translate-x-16" />
                     </motion.div>
                 </div>
             </section>

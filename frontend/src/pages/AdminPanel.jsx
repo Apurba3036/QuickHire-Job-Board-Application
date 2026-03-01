@@ -94,14 +94,14 @@ export default function AdminPanel() {
     };
 
     return (
-        <div className="w-full">
-            <div className="flex justify-between items-center mb-8">
+        <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 py-4 md:py-8">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                 <div>
-                    <h1 className="text-3xl font-extrabold text-gray-800 tracking-tight">Admin Dashboard</h1>
-                    <p className="text-gray-500 text-sm mt-1">Overview and management of your listings</p>
+                    <h1 className="text-2xl md:text-3xl font-extrabold text-gray-800 tracking-tight">Admin Dashboard</h1>
+                    <p className="text-gray-500 text-xs md:text-sm mt-1">Overview and management of your listings</p>
                 </div>
-                <button onClick={() => setShowAddForm(!showAddForm)} className="btn bg-[#4834D4] hover:bg-[#392eb0] text-white border-none flex items-center gap-2 rounded-lg px-6">
-                    <Plus className="w-5 h-5" /> {showAddForm ? 'Cancel' : 'Create New Job'}
+                <button onClick={() => setShowAddForm(!showAddForm)} className="btn bg-[#4834D4] hover:bg-[#392eb0] text-white border-none flex items-center gap-2 rounded-lg px-4 md:px-6 w-full sm:w-auto justify-center text-sm md:text-base h-11 min-h-0">
+                    <Plus className="w-5 h-5 font-bold" /> {showAddForm ? 'Cancel' : 'Create New Job'}
                 </button>
             </div>
 
@@ -141,32 +141,32 @@ export default function AdminPanel() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-6">
-                        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center gap-4">
-                            <div className="p-4 rounded-lg bg-blue-100 text-blue-600">
-                                <Briefcase className="w-6 h-6" />
+                    <div className="flex flex-col gap-4">
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-6 flex items-center gap-4">
+                            <div className="p-3 md:p-4 rounded-lg bg-blue-100 text-blue-600 shrink-0">
+                                <Briefcase className="w-5 h-5 md:w-6 md:h-6" />
                             </div>
                             <div>
-                                <div className="text-3xl font-bold text-gray-800">{jobs.length}</div>
-                                <div className="text-sm text-gray-500 font-medium">Active Jobs</div>
+                                <div className="text-2xl md:text-3xl font-bold text-gray-800">{jobs.length}</div>
+                                <div className="text-xs md:text-sm text-gray-500 font-medium">Active Jobs</div>
                             </div>
                         </div>
-                        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center gap-4">
-                            <div className="p-4 rounded-lg bg-emerald-100 text-emerald-600">
-                                <Users className="w-6 h-6" />
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-6 flex items-center gap-4">
+                            <div className="p-3 md:p-4 rounded-lg bg-emerald-100 text-emerald-600 shrink-0">
+                                <Users className="w-5 h-5 md:w-6 md:h-6" />
                             </div>
                             <div>
-                                <div className="text-3xl font-bold text-gray-800">580</div>
-                                <div className="text-sm text-gray-500 font-medium">Total Applicants</div>
+                                <div className="text-2xl md:text-3xl font-bold text-gray-800">580</div>
+                                <div className="text-xs md:text-sm text-gray-500 font-medium">Total Applicants</div>
                             </div>
                         </div>
-                        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center gap-4">
-                            <div className="p-4 rounded-lg bg-orange-100 text-orange-600">
-                                <Eye className="w-6 h-6" />
+                        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-6 flex items-center gap-4">
+                            <div className="p-3 md:p-4 rounded-lg bg-orange-100 text-orange-600 shrink-0">
+                                <Eye className="w-5 h-5 md:w-6 md:h-6" />
                             </div>
                             <div>
-                                <div className="text-3xl font-bold text-gray-800">1,610</div>
-                                <div className="text-sm text-gray-500 font-medium">Profile Views</div>
+                                <div className="text-2xl md:text-3xl font-bold text-gray-800">1,610</div>
+                                <div className="text-xs md:text-sm text-gray-500 font-medium">Profile Views</div>
                             </div>
                         </div>
                     </div>
@@ -174,9 +174,9 @@ export default function AdminPanel() {
             )}
 
             {showAddForm && (
-                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 mb-8">
+                <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-8 mb-8">
                     <h2 className="text-xl font-bold mb-6 border-b pb-4">Create Job Listing</h2>
-                    <form onSubmit={handleAddJob} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <form onSubmit={handleAddJob} className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         <div className="form-control w-full">
                             <label className="label"><span className="label-text font-semibold">Job Title *</span></label>
                             <input type="text" name="title" required value={newJob.title} onChange={handleInputChange} className="input input-bordered w-full" placeholder="e.g. Senior Frontend Developer" />
@@ -203,7 +203,8 @@ export default function AdminPanel() {
                             <label className="label"><span className="label-text font-semibold">Job Description *</span></label>
                             <textarea name="description" required value={newJob.description} onChange={handleInputChange} className="textarea textarea-bordered h-32" placeholder="Describe the role..."></textarea>
                         </div>
-                        <div className="md:col-span-2 flex justify-end">
+                        <div className="md:col-span-2 flex justify-end gap-3">
+                            <button type="button" onClick={() => setShowAddForm(false)} className="btn btn-ghost">Cancel</button>
                             <button type="submit" className="btn btn-primary px-8">Publish Job</button>
                         </div>
                     </form>
